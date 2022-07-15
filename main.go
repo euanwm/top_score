@@ -18,5 +18,7 @@ func PrintTopTotal(resultFp string) {
 	}
 	csvReader := csv.NewReader(file)
 	results, _ := csvReader.ReadAll()
-	fmt.Println(results)
+	for _, line := range results {
+		fmt.Println(line[3], line[13])
+	}
 }
