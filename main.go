@@ -16,11 +16,23 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	var lifterHistory [][]string
 	for _, csvPath := range csvFiles {
 		var result = GetLifterResult(path.Join(csvDir, csvPath.Name()), lifterName)
 		if len(result) != 0 {
-			fmt.Println(result)
+			lifterHistory = append(lifterHistory, result)
 		}
+	}
+	if len(lifterHistory) == 0 {
+		fmt.Println("No results found!")
+	} else {
+		bigListPrint(lifterHistory)
+	}
+}
+
+func bigListPrint(listBoi [][]string) {
+	for _, contents := range listBoi {
+		fmt.Println(contents)
 	}
 }
 
