@@ -27,12 +27,33 @@ func main() {
 		fmt.Println("No results found!")
 	} else {
 		bigListPrint(lifterHistory)
+		writeCSV(lifterName, lifterHistory)
 	}
 }
 
 func bigListPrint(listBoi [][]string) {
 	for _, contents := range listBoi {
 		fmt.Println(contents)
+	}
+}
+
+//genFilename Getting wavy and writing code, blank return cuz i'm edgy and quirky
+func genFilename(lifternName string) (filename string) {
+	filename = strings.ReplaceAll(lifternName, " ", "_") + ".csv"
+	return
+}
+
+//writeCSV Writes CSV file, first arg is the filepath/name. Second is the bigSlice data.
+func writeCSV(lifterName string, bigSlice [][]string) {
+	csvName := genFilename(lifterName)
+	newCsvFile, err := os.Create(csvName)
+	if err != nil {
+		log.Fatal(err)
+	}
+	writer := csv.NewWriter(newCsvFile)
+	writeData := writer.WriteAll(bigSlice)
+	if writeData != nil {
+		fmt.Println(writeData)
 	}
 }
 
